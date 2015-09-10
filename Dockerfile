@@ -11,7 +11,10 @@
 FROM ubuntu:14.04
 MAINTAINER Jonas Colmsjö "jonas@gizur.com"
 
-RUN apt-get update
+RUN cd /etc/apt \
+        && sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' sources.list \
+        && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C \
+        && apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y inetutils-ftp nano wget
 
@@ -74,9 +77,11 @@ RUN echo "10" > /etc/pure-ftpd/conf/MaxClientsNumber
 # Setup users, add as many as needed
 # ----------------------------------
 
-RUN useradd -m -s /bin/bash someone
-RUN echo someone:password |chpasswd
+RUN useradd -m -s /bin/bash wanghao
+RUN echo wanghao:Jug3Grec|chpasswd
 
+RUN useradd -m -s /bin/bash gongcheng
+RUN echo gongcheng:ToulIch1|chpasswd
 
 #
 # Start things
